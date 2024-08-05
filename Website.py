@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template 
-from Vex  import *
-from GridGen import *
+from GridGen  import *
 
 app = Flask(__name__) 
   
