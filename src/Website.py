@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template 
-from GridGen  import *
+from src.GridGen  import *
 
 app = Flask(__name__) 
   
