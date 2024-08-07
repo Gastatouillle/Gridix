@@ -1,5 +1,6 @@
 import math
 
+
 def GridSizer(MinGridSize, ShelfDepth, ShelfLen, MaxGridSize):
     GridSize = int(MinGridSize)
     for i in range(MinGridSize, MaxGridSize):
@@ -7,6 +8,7 @@ def GridSizer(MinGridSize, ShelfDepth, ShelfLen, MaxGridSize):
         ShelfLenMod = int(ShelfLen) % GridSize
         #determine if Gridsize divides perfectly into given space
         if ShelfDepMod == 0 and ShelfLenMod == 0:
+            GridSize = i
             return i
         else:
             GridSize+=1
