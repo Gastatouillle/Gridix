@@ -1,9 +1,9 @@
-from flask import Flask, request, render_template 
-from src.GridGen  import *
+from flask import Flask, request, render_template, redirect
+from GridGen  import *
 
 app = Flask(__name__) 
-  
-@app.route('/Landing', methods=['GET', 'POST']) 
+
+@app.route('/') 
 def GetData(): 
     if request.method == 'POST': 
         global GridSize
@@ -15,15 +15,13 @@ def GetData():
         ShelfWidth = int(request.form.get('ShelfWidthInput'))
         BedSize = request.form.get('BedSizeText')
         GridSize = GridSizer(MinimumGridSize, ShelfWidth, ShelfLen, MaximumGridSize)
-        
-        print(f"Gridsize is: {GridSize}")
     
     return render_template('Landing.html')
 
 @app.route('/Grid')
 def CreateLayout():
-    CountGridsX(GridSize, ShelfWidth)
-    CountGridsY(GridSize, ShelfLen)
+ #   CountGridsX(GridSize, ShelfWidth)
+  #  CountGridsY(GridSize, ShelfLen)
     return render_template('Grid.html')
 
 if __name__ == '__main__': 

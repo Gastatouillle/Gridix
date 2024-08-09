@@ -1,7 +1,7 @@
-GridSize = 32;
+GridSize = 7;
 GridHeight = 4;
-GridsX = 50;
-GridsY = 15;
+GridsX = 5;
+GridsY = 5;
 
 difference(){
     
