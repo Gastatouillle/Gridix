@@ -1,7 +1,9 @@
-Storage generator
+Gridix is a fully customisable grid based storage system.
 
-Generats a custom grid and alters the storage bins based on the size of your space.
+It takes in the size of your space as well as ideal size for individual grids and even the bed size of your printer.
 
-Uses Flask with OpenSCAD to generate grids
+A website with drag and drop containers for visualising your space allows you to decide what containers to print without wasting filament.
 
-WIP
+Gridix is designed as a more permanent solution to gridfinity, it's unlikely grids and containers generated with gridix will be compatible to other gridix systems.
+
+Gridix uses Flask and OpenSCAD, instructions for dependency installs are WIP as is 95% of gridix
