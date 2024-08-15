@@ -1,30 +1,56 @@
 import math
 
-
 def GridSizer(MinGridSize, ShelfDepth, ShelfLen, MaxGridSize):
-    GridSize = int(MinGridSize)
-    for i in range(MinGridSize, MaxGridSize):
-        ShelfDepMod = int(ShelfDepth) % GridSize
-        ShelfLenMod = int(ShelfLen) % GridSize
-        #determine if Gridsize divides perfectly into given space
-        if ShelfDepMod == 0 and ShelfLenMod == 0:
-            GridSize = i
+    MinGridSize = int(MinGridSize)
+    ShelfDepth = int(ShelfDepth)
+    ShelfLen = int(ShelfLen)
+    MaxGridSize = int(MaxGridSize)
+    
+    for i in range(MinGridSize, MaxGridSize + 1):
+        if ShelfDepth % i == 0 and ShelfLen % i == 0:
             return i
-        else:
-            GridSize+=1
+    return None  # Return None if no suitable grid size is found
 
 def BedFitter(BedSize, ShelfDepth, ShelfLen, MinGridSize, MaxGridSize):
-    #Determine how many grids fit on one bed rounded down
-    GridspWidth = int(BedSize)/GridSizer(MinGridSize, ShelfDepth, ShelfLen, MaxGridSize)
-    GridspLen = int(BedSize)/GridSizer(MinGridSize, ShelfDepth, ShelfLen, MaxGridSize)
-    #Round down to leave dead space on bed rather than overfill bed
-    GridspBed = math.floor(GridspWidth) * math.floor(GridspLen)
-    GridsNeeded = (int(ShelfDepth)/GridSizer(MinGridSize, ShelfDepth, ShelfLen, MaxGridSize)) * (int(ShelfLen)/GridSizer(MinGridSize, ShelfDepth, ShelfLen, MaxGridSize))
-
-    return GridsNeeded/GridspBed
+    GridSize = GridSizer(MinGridSize, ShelfDepth, ShelfLen, MaxGridSize)
+    if GridSize is None:
+        raise ValueError("No suitable grid size found within the given range.")
+    
+    ShelfDepth = int(ShelfDepth)
+    ShelfLen = int(ShelfLen)
+    BedSize = int(BedSize)
+    
+    GridsPerWidth = BedSize / GridSize
+    GridsPerLength = BedSize / GridSize
+    
+    # Round down to leave dead space rather than overfilling
+    GridsInBed = math.floor(GridsPerWidth) * math.floor(GridsPerLength)
+    
+    # Calculate grids needed for the entire shelf space
+    GridsNeeded = (ShelfDepth / GridSize) * (ShelfLen / GridSize)
+    
+    # Avoid division by zero
+    if GridsInBed == 0:
+        raise ValueError("Bed size is too small to fit any grid units.")
+    
+    return GridsNeeded / GridsInBed
 
 def CountGridsX(GridSize, ShelfLen):
-    return ShelfLen/GridSize
+    GridSize = int(GridSize)
+    ShelfLen = int(ShelfLen)
+    
+    # Avoid division by zero
+    if GridSize == 0:
+        raise ValueError("Grid size cannot be zero.")
+    
+    return ShelfLen / GridSize
 
 def CountGridsY(GridSize, ShelfWidth):
-    return ShelfWidth/GridSize
+    GridSize = int(GridSize)
+    ShelfWidth = int(ShelfWidth)
+    
+    # Avoid division by zero
+    if GridSize == 0:
+        raise ValueError("Grid size cannot be zero.")
+    
+    return ShelfWidth / GridSize

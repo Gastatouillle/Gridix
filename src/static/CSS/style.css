@@ -1,0 +1,22 @@
+.StdButton {
+    margin: 0;
+    list-style: none; 
+  
+    /* Remove underline */
+    color: #333;
+    /* Dark gray text */
+    font-weight: bold;
+    padding: 5px 5px;
+    /* Add padding to buttons */
+    border-radius: 5px;
+    /* Round the corners slightly */
+    background-color: #6a0d9c;
+  
+    border-style: none;
+    outline-style: none;
+    /* Light gray button background */
+    text-decoration: none;
+  }
+
+
+  

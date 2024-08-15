@@ -1,28 +1,24 @@
 from flask import Flask, request, render_template, redirect
 from GridGen  import *
 
-app = Flask(__name__) 
+app = Flask(__name__, static_url_path='') 
 
 @app.route('/') 
-def GetData(): 
-    if request.method == 'POST': 
-        global GridSize
-        global ShelfLen
-        global ShelfWidth
-        MinimumGridSize = int(request.form.get('MinimumGridSizeInput'))
-        MaximumGridSize = int(request.form.get('MaximumGridSizeInput'))
-        ShelfLen = int(request.form.get('ShelfLenInput'))
-        ShelfWidth = int(request.form.get('ShelfWidthInput'))
-        BedSize = request.form.get('BedSizeText')
-        GridSize = GridSizer(MinimumGridSize, ShelfWidth, ShelfLen, MaximumGridSize)
-    
+def Index(): 
     return render_template('Landing.html')
 
-@app.route('/Grid')
-def CreateLayout():
- #   CountGridsX(GridSize, ShelfWidth)
-  #  CountGridsY(GridSize, ShelfLen)
-    return render_template('Grid.html')
+#
+
+@app.route('/grid', methods=['POST'])
+def grid():
+    space_len = request.form.get('SpaceLen', 10)
+    space_wid = request.form.get('SpaceWid', 10)
+    grid_min = request.form.get('GridMin', 10)
+    grid_max = request.form.get('GridMax', 15)
+    grid_size = GridSizer(int(grid_min), int(space_len), int(space_wid), int(grid_max))
+    grids_x = CountGridsX(int(grid_size), int(space_len))
+    grids_y = CountGridsX(int(grid_size), int(space_wid))
+    return render_template('Grid.html', x_units=int(grids_x), y_units=int(grids_y))
 
 if __name__ == '__main__': 
     app.run()
