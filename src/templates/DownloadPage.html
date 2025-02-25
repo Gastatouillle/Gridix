@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .banner {
+            background-image: url("{{ url_for('static', filename='images/banner.jpg') }}");
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .file-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .file-list li {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .file-list img {
+            width: 50px;  /* Thumbnail width */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 10px; /* Spacing between image and text */
+        }
+        .file-list a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .file-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner"></div>
+
+    <div class="container">
+        <h1>Download Files</h1>
+        <ul class="file-list">
+            {% for file in files %}
+                <li>
+                    <img src="{{ url_for('static', filename='images/thumbnails/' + thumbnails[file]) }}" alt="{{ file }} thumbnail">
+                    <a href="{{ url_for('download_file', filename=file) }}">{{ file }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>

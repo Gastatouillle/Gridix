@@ -9,7 +9,7 @@ def GridSizer(MinGridSize, ShelfDepth, ShelfLen, MaxGridSize):
     for i in range(MinGridSize, MaxGridSize + 1):
         if ShelfDepth % i == 0 and ShelfLen % i == 0:
             return i
-    return None  # Return None if no suitable grid size is found
+    return ValueError()  # Return None if no suitable grid size is found
 
 def BedFitter(BedSize, ShelfDepth, ShelfLen, MinGridSize, MaxGridSize):
     GridSize = GridSizer(MinGridSize, ShelfDepth, ShelfLen, MaxGridSize)
